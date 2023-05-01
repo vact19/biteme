@@ -4,17 +4,14 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import site.biteme.biteme.domain.common.Department;
-import site.biteme.biteme.domain.common.Grade;
-import site.biteme.biteme.domain.common.Major;
-import site.biteme.biteme.domain.common.Rank;
+import site.biteme.biteme.domain.common.*;
 
 import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Student {
+public class Student extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,7 +29,6 @@ public class Student {
 
     // todo 랭크를 올리기 위한 포인트를 어떻게 운용할 것인지. 별도의 엔티티로? 그냥 학생엔티티 메서드로?
     // todo 유틸리티 클래스? 생각해보자.
-    // todo 글, 답변, 질문댓글 구현
     private int point = 0;
 
 
