@@ -24,8 +24,9 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authenticationInterceptor)
                 .order(1)   // 인증 인터셉터를 첫 번째로 수행
-//                .addPathPatterns("/api/**")     // 이 경로를 대상으로 동작
-//                .excludePathPatterns("/api/oauth/login", "/api/token", "/api/logout","/api/health/**")  // 이 경로는 검사 제외
+                .addPathPatterns("/api/**")     // 이 경로를 대상으로 동작
+                // todo 현재 인터셉터 비활성화.
+                .excludePathPatterns("/**", "/api/token", "/api/logout","/api/health/**")  // 이 경로는 검사 제외
                 ;
 
     }
