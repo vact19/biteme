@@ -43,15 +43,15 @@ public class TokenManager {
                 .build();
     }
 
-    public Date createAccessTokenExpireTime() {
+    private Date createAccessTokenExpireTime() {
         return new Date(System.currentTimeMillis() + Long.parseLong(accessTokenExpirationTime));
     }
 
-    public Date createRefreshTokenExpireTime() {
+    private Date createRefreshTokenExpireTime() {
         return new Date(System.currentTimeMillis() + Long.parseLong(refreshTokenExpirationTime));
     }
 
-    public String createAccessToken(String email, Date expirationTime) {
+    private String createAccessToken(String email, Date expirationTime) {
         String accessToken = Jwts.builder()
                 .setSubject(TokenType.ACCESS.name())                // 토큰 제목
                 .setAudience(email)                                 // 토큰 대상자
@@ -69,7 +69,7 @@ public class TokenManager {
         return accessToken;
     }
 
-    public String createRefreshToken(String email, Date expirationTime) {
+    private String createRefreshToken(String email, Date expirationTime) {
         String refreshToken = Jwts.builder()
                 .setSubject(TokenType.REFRESH.name())               // 토큰 제목
                 .setAudience(email)                                 // 토큰 대상자
