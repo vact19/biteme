@@ -16,7 +16,6 @@ public class WebConfig implements WebMvcConfigurer {
     // Converters
     private final CategoryConverter categoryConverter; private final DepartmentConverter departmentConverter;
     private final MajorConverter majorConverter; private final RankConverter rankConverter;
-    private final GradeConverter gradeConverter;
 
     // Interceptors
     private final AuthenticationInterceptor authenticationInterceptor;
@@ -37,7 +36,6 @@ public class WebConfig implements WebMvcConfigurer {
          registry.addConverter(departmentConverter);
          registry.addConverter(majorConverter);
          registry.addConverter(rankConverter);
-         registry.addConverter(gradeConverter);
      }
 }
 

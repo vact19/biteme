@@ -1,4 +1,4 @@
-package site.biteme.biteme.domain.user;
+package site.biteme.biteme.domain.student;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -23,9 +23,7 @@ public class Student extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Department department;
     @Enumerated(EnumType.STRING)
-    private Rank rank;
-    @Enumerated(EnumType.STRING)
-    private Grade grade;
+    private Rank rank; // 서비스 내 등급
 
     // todo 랭크를 올리기 위한 포인트를 어떻게 운용할 것인지. 별도의 엔티티로? 그냥 학생엔티티 메서드로?
     // todo 유틸리티 클래스? 생각해보자.
@@ -33,13 +31,12 @@ public class Student extends BaseTimeEntity {
 
 
     @Builder
-    public Student(String name, String email, String password, Major major, Department department, Rank rank, Grade grade) {
+    public Student(String name, String email, String password, Major major, Department department, Rank rank) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.major = major;
         this.department = department;
         this.rank = rank;
-        this.grade = grade;
     }
 }
