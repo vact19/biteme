@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import site.biteme.biteme.domain.common.BaseTimeEntity;
 import site.biteme.biteme.domain.question.Question;
-import site.biteme.biteme.domain.user.Student;
+import site.biteme.biteme.domain.student.Student;
 
 import javax.persistence.*;
 import java.util.ArrayList;

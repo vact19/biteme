@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import site.biteme.biteme.domain.common.BaseTimeEntity;
 import site.biteme.biteme.domain.question.Question;
-import site.biteme.biteme.domain.user.Student;
+import site.biteme.biteme.domain.student.Student;
 
 import javax.persistence.*;
 
@@ -17,6 +17,7 @@ public class QuestionComment extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String content;
     // 어떤 질문인지
     @ManyToOne(fetch = FetchType.LAZY)

@@ -4,8 +4,14 @@ import lombok.Getter;
 
 @Getter
 public enum ErrorCode {
-    ALREADY_REGISTERED_STUDENT(409, "이미 가입된 학생입니다."),
-    MISMATCHED_PASSWORD(409, "패스워드가 일치하지 않습니다."),
+
+
+    EMAIL_ALREADY_REGISTERED(409, "이미 가입된 이메일입니다."),
+
+    // 인증 - 로그인 시도
+    MISMATCHED_SIGNIN_INFO(400, "잘못된 로그인 정보입니다."),
+
+    // 인증 - 토큰
     NOT_EXISTS_AUTHORIZATION(401, "Authorization Header가 빈 값입니다."),
     NOT_VALID_BEARER_GRANT_TYPE(401, "인증 타입이 Bearer 타입이 아닙니다."),
     ACCESS_TOKEN_EXPIRED(401, "해당 access token은 만료됐습니다."),

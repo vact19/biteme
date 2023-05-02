@@ -5,8 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import site.biteme.biteme.global.exception.BusinessException;
 import site.biteme.biteme.global.exception.ErrorCode;
 import site.biteme.biteme.global.exception.auth.AuthenticationException;
+
+import javax.validation.ConstraintViolationException;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -17,7 +20,12 @@ public class StudentService {
     private final PasswordEncoder passwordEncoder;
     @Transactional
     public Student signUp(Student student) {
-        return studentRepository.save(student);
+        try {
+            return studentRepository.save(student);
+        } catch (ConstraintViolationException e) { // email unique 제약조건 위반 시
+            throw new BusinessException(ErrorCode.EMAIL_ALREADY_REGISTERED);
+        }
+
     }
 
     public void validatePassword(String email, String password) {

@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import site.biteme.biteme.domain.common.BaseTimeEntity;
 import site.biteme.biteme.domain.common.Category;
-import site.biteme.biteme.domain.user.Student;
+import site.biteme.biteme.domain.student.Student;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,7 +20,9 @@ public class Question extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String title;
+    @Column(nullable = false)
     private Category category;
     private String content;
     @ElementCollection
