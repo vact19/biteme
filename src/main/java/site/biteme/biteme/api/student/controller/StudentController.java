@@ -21,7 +21,7 @@ public class StudentController {
     private final PasswordEncoder passwordEncoder;
 
     // 회원가입
-    @PostMapping("/student/sign-up")
+    @PostMapping("/students/sign-up")
     public ResponseEntity<SingleRspsTemplate<String>> signUp(@RequestBody @Valid StudentSignUpDto.Request signUpRequest){
         Student student = studentService.signUp(signUpRequest.toEntity(passwordEncoder));
         SingleRspsTemplate<String> rspsTemplate = new SingleRspsTemplate<>(HttpStatus.CREATED.value(),

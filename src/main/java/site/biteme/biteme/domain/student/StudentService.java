@@ -25,7 +25,6 @@ public class StudentService {
         } catch (ConstraintViolationException e) { // email unique 제약조건 위반 시
             throw new BusinessException(ErrorCode.EMAIL_ALREADY_REGISTERED);
         }
-
     }
 
     public void validatePassword(String email, String password) {

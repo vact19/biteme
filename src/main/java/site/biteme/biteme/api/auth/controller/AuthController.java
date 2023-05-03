@@ -18,7 +18,7 @@ public class AuthController {
     private final AuthService authService;
 
     // 로그인
-    @PostMapping("/student/sign-in")
+    @PostMapping("/students/sign-in")
     public SingleRspsTemplate<TokenDto> signIn(@RequestBody @Valid StudentSignInDto.Request singInRequest){
         TokenDto tokenDto = authService.signIn(singInRequest.getEmail(), singInRequest.getPassword());
         return new SingleRspsTemplate<>(HttpStatus.OK.value(), tokenDto);

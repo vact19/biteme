@@ -34,3 +34,7 @@ spring:
 logging:
   level:
     org.hibernate.type: trace
+
+file:
+  upload:
+    path: C:/Users/woo/myimage/
