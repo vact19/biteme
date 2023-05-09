@@ -23,7 +23,7 @@ public class StudentController {
     // 회원가입
     @PostMapping("/students/sign-up")
     public ResponseEntity<SingleRspsTemplate<String>> signUp(@RequestBody @Valid StudentSignUpDto.Request signUpRequest){
-        Student student = studentService.signUp(signUpRequest.toEntity(passwordEncoder));
+        Student student = studentService.signUp(signUpRequest.toEntity(passwordEncoder), signUpRequest.getEmailVrfCode());
         SingleRspsTemplate<String> rspsTemplate = new SingleRspsTemplate<>(HttpStatus.CREATED.value(),
                 student.getName() + " is created");
         return ResponseEntity.status(HttpStatus.CREATED).body(rspsTemplate);

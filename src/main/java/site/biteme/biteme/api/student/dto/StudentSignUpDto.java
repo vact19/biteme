@@ -22,6 +22,8 @@ public class StudentSignUpDto {
         private String name;
         @Email(message = "Email 형식이어야 합니다")
         private String email;
+        @Length(min = 4, max = 4, message = "이메일 인증 코드는 4자여야 합니다")
+        private String emailVrfCode;
         @Length(min = 4, max = 20, message = "비밀번호는 4~20자 사이여야 합니다")
         private String password;
         @NotNull
@@ -44,3 +46,4 @@ public class StudentSignUpDto {
 
 
 }
+

@@ -7,14 +7,14 @@ import site.biteme.biteme.domain.common.Department;
 import site.biteme.biteme.domain.common.Major;
 import site.biteme.biteme.domain.common.Rank;
 import site.biteme.biteme.domain.student.Student;
-import site.biteme.biteme.domain.student.StudentService;
+import site.biteme.biteme.domain.student.StudentRepository;
 
 import javax.annotation.PostConstruct;
 
 @RequiredArgsConstructor
 @Component
 public class Init {
-    private final StudentService studentService;
+    private final StudentRepository studentRepository;
     private final PasswordEncoder passwordEncoder;
 
     @PostConstruct
@@ -27,6 +27,7 @@ public class Init {
                 .department(Department.IT)
                 .rank(Rank.FRESHMAN)
                 .build();
-        studentService.signUp(student);
+        studentRepository.save(student);
+
     }
 }

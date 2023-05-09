@@ -9,7 +9,6 @@ import site.biteme.biteme.domain.common.Category;
 import site.biteme.biteme.domain.student.Student;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -26,7 +25,7 @@ public class Question extends BaseTimeEntity {
     private Category category;
     private String content;
     @ElementCollection
-    private List<String> imageUrls = new ArrayList<>();;
+    private List<String> imageUrls;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false) // 누가 질문을 작성했는지
     private Student student;
