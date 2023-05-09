@@ -6,6 +6,17 @@ server:
     enabled: true
 
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
   datasource:
     url:
     username:
@@ -15,11 +26,6 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-  cloud:
-    gcp:
-      storage:
-        credentials:
-          location:
 
   jpa:
     hibernate:
