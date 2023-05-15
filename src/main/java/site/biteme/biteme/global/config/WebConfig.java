@@ -3,10 +3,17 @@ package site.biteme.biteme.global.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import site.biteme.biteme.global.converter.*;
+import site.biteme.biteme.global.converter.CategoryConverter;
+import site.biteme.biteme.global.converter.DepartmentConverter;
+import site.biteme.biteme.global.converter.MajorConverter;
+import site.biteme.biteme.global.converter.RankConverter;
 import site.biteme.biteme.global.interceptor.AuthenticationInterceptor;
+import site.biteme.biteme.global.resolver.StudentEmailArgResolver;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Configuration
@@ -16,9 +23,10 @@ public class WebConfig implements WebMvcConfigurer {
     // Converters
     private final CategoryConverter categoryConverter; private final DepartmentConverter departmentConverter;
     private final MajorConverter majorConverter; private final RankConverter rankConverter;
-
     // Interceptors
     private final AuthenticationInterceptor authenticationInterceptor;
+    // ArgumentResolvers
+    private final StudentEmailArgResolver studentEmailArgResolver;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -37,6 +45,11 @@ public class WebConfig implements WebMvcConfigurer {
          registry.addConverter(majorConverter);
          registry.addConverter(rankConverter);
      }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+         resolvers.add(studentEmailArgResolver);
+    }
 }
 
 
