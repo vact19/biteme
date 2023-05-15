@@ -22,7 +22,7 @@ public class Init {
         Student student = Student.builder()
                 .email("ex@email.com")
                 .name("name")
-                .password(passwordEncoder.encode("password"))
+                .password(passwordEncoder.encode("pppp"))
                 .major(Major.AI)
                 .department(Department.IT)
                 .rank(Rank.FRESHMAN)
