@@ -5,9 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import site.biteme.biteme.domain.common.BaseTimeEntity;
-import site.biteme.biteme.domain.common.Department;
-import site.biteme.biteme.domain.common.Major;
-import site.biteme.biteme.domain.common.Rank;
 
 import javax.persistence.*;
 

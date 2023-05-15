@@ -23,7 +23,9 @@ public class Question extends BaseTimeEntity {
     private String title;
     @Column(nullable = false)
     private Category category;
+    @Lob
     private String content;
+    private State state; // 질문 상태. In progress, Done
     @ElementCollection
     private List<String> imageUrls;
     @ManyToOne(fetch = FetchType.LAZY)

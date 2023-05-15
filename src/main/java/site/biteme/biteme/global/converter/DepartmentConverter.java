@@ -2,7 +2,7 @@ package site.biteme.biteme.global.converter;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-import site.biteme.biteme.domain.common.Department;
+import site.biteme.biteme.domain.student.Department;
 @Component
 public class DepartmentConverter implements Converter<String, Department> {
     @Override

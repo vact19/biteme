@@ -1,4 +1,4 @@
-package site.biteme.biteme.domain.common;
+package site.biteme.biteme.domain.student;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
