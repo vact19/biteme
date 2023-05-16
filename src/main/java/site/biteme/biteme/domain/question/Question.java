@@ -1,9 +1,6 @@
 package site.biteme.biteme.domain.question;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import site.biteme.biteme.domain.common.BaseTimeEntity;
 import site.biteme.biteme.domain.common.Category;
 import site.biteme.biteme.domain.student.Student;
@@ -22,14 +19,17 @@ public class Question extends BaseTimeEntity {
     @Column(nullable = false)
     private String title;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Category category;
     @Lob
     private String content;
-    private State state; // 질문 상태. In progress, Done
-    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    private State state = State.IN_PROGRESS; // 질문 상태. In progress, Done. 기본값은 In progress
+    @Setter
+    @ElementCollection(fetch = FetchType.LAZY)
     private List<String> imageUrls;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", nullable = false) // 누가 질문을 작성했는지
+    @JoinColumn(name = "student_id", nullable = false, updatable = false) // 누가 질문을 작성했는지
     private Student student;
 
     @Builder

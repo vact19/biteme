@@ -48,4 +48,4 @@ logging:
 
 file:
   upload:
-    path: C:/Users/woo/myimage/
+    path:

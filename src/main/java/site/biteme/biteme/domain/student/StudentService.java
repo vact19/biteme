@@ -60,4 +60,9 @@ public class StudentService {
         studentRepository.findByEmail(email)
                 .ifPresent(user -> {throw new AuthenticationException(ErrorCode.EMAIL_ALREADY_REGISTERED);});
     }
+
+    public Student findByEmail(String email) {
+        return studentRepository.findByEmail(email)
+                .orElseThrow(() -> new BusinessException(ErrorCode.STUDENT_NOT_FOUND));
+    }
 }

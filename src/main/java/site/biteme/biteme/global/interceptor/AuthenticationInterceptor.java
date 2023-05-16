@@ -30,7 +30,11 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
-        log.info("AuthenticationInterceptor preHandler");
+        // GET 요청은 모두 허용
+        // TODO 사용자 민감 정보가 포함된 GET 요청은 허용하지 않도록 별도의 Interceptor 만들기
+        if ("GET".equals(request.getMethod())) {
+            return true;
+        }
 
         //  1. authorization 필수 체크. 헤더 부분에 Authorization 이 없으면 지정한 예외를 발생시킴
         //  토큰 유무 확인

@@ -1,68 +1,102 @@
 package site.biteme.biteme.api.question.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 import site.biteme.biteme.api.common.SingleRspsTemplate;
-import site.biteme.biteme.api.student.dto.WriteQuestionDto;
-import site.biteme.biteme.domain.jwt.service.TokenManager;
+import site.biteme.biteme.api.question.dto.WriteQuestionDto;
 import site.biteme.biteme.domain.question.QuestionService;
+import site.biteme.biteme.domain.student.Student;
+import site.biteme.biteme.domain.student.StudentService;
+import site.biteme.biteme.global.resolver.StudentEmail;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.UUID;
+import java.util.Arrays;
 
 @RequiredArgsConstructor
 @RestController
 public class QuestionController {
-    private static String imageUrl;
     private final QuestionService questionService;
-    @Value("${file.upload.path}")// yml 설정파일
-    private String fileUploadPath;
-    private final TokenManager tokenManager;
+    private final StudentService studentService;
 
-    @GetMapping("/questionsImageTest")
-    public void getAllQuestions(HttpServletResponse response) throws IOException {
-        InputStream imageStream = new FileInputStream(fileUploadPath + imageUrl);
+
+    @GetMapping("/")
+    public void getImage(HttpServletResponse response) throws IOException {
+        InputStream imageStream = new FileInputStream("C:/Users/woo/myimage/" + "6fee38a0-fc8c-4a94-8f2f-d1bb3a99548e.png");
         byte[] bytes = imageStream.readAllBytes();
         imageStream.close();
-
+        System.err.println(Arrays.toString(bytes));
         response.setContentType("image/*");
         response.getOutputStream().write(bytes);
     }
+
+    // 질문 등록
     @PostMapping("/questions")
     public ResponseEntity<SingleRspsTemplate<String>> createQuestion(@ModelAttribute @Valid
                                                                          WriteQuestionDto.Request questionRequest,
-                                                                     HttpServletRequest request) throws IOException {
-        String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        String email = tokenManager.getMemberEmail(authorizationHeader.split(" ")[1]);
+                                                                     @StudentEmail String email){
+        Student student = studentService.findByEmail(email);
+        questionService.save(questionRequest.toEntity(student), questionRequest.getImageFiles());
 
-        // 1. dto의 이미지를 로컬에 저장
-        // todo 지금 사진 하나만 저장하는거임
-        MultipartFile multipartFile = questionRequest.getImageFiles().get(0);
-        String originalFileName = multipartFile.getOriginalFilename();
-
-        String uuid = UUID.randomUUID().toString();
-        int pos = originalFileName.lastIndexOf(".");
-        String ext = originalFileName.substring(pos + 1);
-        String storedFileName = email + uuid + "." + ext;
-        imageUrl = storedFileName;
-        multipartFile.transferTo(new File(fileUploadPath + storedFileName));
-        // 2. 이미지 파일명을 db에 저장
-
-        // 3. 201 응답
-        return ResponseEntity.ok(new SingleRspsTemplate<>(HttpStatus.CREATED.value(), storedFileName));
+        // 3. 201 응답😝
+        return ResponseEntity.ok(new SingleRspsTemplate<>(HttpStatus.CREATED.value(), "question created"));
     }
+
+//    @GetMapping
+//    public String test(@ModelAttribute Request request){
+//        System.out.println(request.getImageFiles().getClass().getSimpleName());
+//        if (request.getImageFiles() == null) {
+//            System.out.println("null");
+//        } else {
+//            System.out.println("not null");
+//        }
+//        if (request.getImageFiles().isEmpty()) {
+//            System.out.println("비어있음");
+//        } else {
+//            System.out.println("비어있지 않음");
+//        }
+//
+//        if (request.getImageFiles().get(2).isEmpty()) {
+//            System.out.println("원소 비어있음");
+//        } else {
+//            System.out.println("원소 비어있지 않음");
+//        }
+//        return "test";
+//    }
+//    @AllArgsConstructor
+//    @Getter
+//    static class Request {
+//        List<MultipartFile> imageFiles;
+//    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

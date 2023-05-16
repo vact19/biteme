@@ -21,6 +21,13 @@ public enum ErrorCode {
     REFRESH_TOKEN_EXPIRED(401, "해당 refresh token은 만료됐습니다."),
     REFRESH_TOKEN_NOT_FOUND(400, "해당 refresh token은 존재하지 않습니다."),
     NOT_VALID_TOKEN(401, "유효하지 않은 토큰입니다."),
+
+    // 학생
+    STUDENT_NOT_FOUND(404, "해당 학생을 찾을 수 없습니다."),
+
+    // 파일
+    FILE_CANNOT_BE_STORED(500, "파일을 저장할 수 없습니다."),
+
     ;
 
 
