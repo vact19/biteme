@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import site.biteme.biteme.domain.student.StudentRepository;
+import site.biteme.biteme.global.exception.BusinessException;
+import site.biteme.biteme.global.exception.ErrorCode;
 import site.biteme.biteme.util.FileService;
 
 import java.util.List;
@@ -34,5 +36,10 @@ public class QuestionService {
 
         // 3. 마지막으로 Question 저장.
         return questionRepository.save(question);
+    }
+
+    public Question findById(Long questionId) {
+        return questionRepository.findById(questionId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.QUESTION_NOT_FOUND));
     }
 }

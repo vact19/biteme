@@ -25,6 +25,9 @@ public enum ErrorCode {
     // 학생
     STUDENT_NOT_FOUND(404, "해당 학생을 찾을 수 없습니다."),
 
+    // 질문
+    QUESTION_NOT_FOUND(404, "해당 질문을 찾을 수 없습니다."),
+
     // 파일
     FILE_CANNOT_BE_STORED(500, "파일을 저장할 수 없습니다."),
 

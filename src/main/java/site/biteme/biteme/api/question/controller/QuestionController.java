@@ -3,51 +3,45 @@ package site.biteme.biteme.api.question.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import site.biteme.biteme.api.common.SingleRspsTemplate;
-import site.biteme.biteme.api.question.dto.WriteQuestionDto;
+import site.biteme.biteme.api.question.dto.AddQuestionDto;
 import site.biteme.biteme.domain.question.QuestionService;
 import site.biteme.biteme.domain.student.Student;
 import site.biteme.biteme.domain.student.StudentService;
 import site.biteme.biteme.global.resolver.StudentEmail;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
 
 @RequiredArgsConstructor
 @RestController
 public class QuestionController {
     private final QuestionService questionService;
     private final StudentService studentService;
+//    private final FileService fileService;
 
-
-    @GetMapping("/")
-    public void getImage(HttpServletResponse response) throws IOException {
-        InputStream imageStream = new FileInputStream("C:/Users/woo/myimage/" + "6fee38a0-fc8c-4a94-8f2f-d1bb3a99548e.png");
-        byte[] bytes = imageStream.readAllBytes();
-        imageStream.close();
-        System.err.println(Arrays.toString(bytes));
-        response.setContentType("image/*");
-        response.getOutputStream().write(bytes);
-    }
+//    @GetMapping("/questions/images")
+//    public void getImage(HttpServletResponse response, @RequestParam String url) {
+//        byte[] bytes = fileService.getByteArr(url);
+//
+//
+//
+//        response.setContentType("image/*");
+//        response.getOutputStream().write(bytes);
+//    }
 
     // 질문 등록
     @PostMapping("/questions")
     public ResponseEntity<SingleRspsTemplate<String>> createQuestion(@ModelAttribute @Valid
-                                                                         WriteQuestionDto.Request questionRequest,
+                                                                         AddQuestionDto.Request questionRequest,
                                                                      @StudentEmail String email){
         Student student = studentService.findByEmail(email);
         questionService.save(questionRequest.toEntity(student), questionRequest.getImageFiles());
 
-        // 3. 201 응답😝
-        return ResponseEntity.ok(new SingleRspsTemplate<>(HttpStatus.CREATED.value(), "question created"));
+        SingleRspsTemplate<String> rspsTemplate = new SingleRspsTemplate<>(HttpStatus.CREATED.value(), "question created");
+        return ResponseEntity.status(HttpStatus.CREATED).body(rspsTemplate);
     }
 
 //    @GetMapping
