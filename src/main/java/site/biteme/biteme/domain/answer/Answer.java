@@ -10,8 +10,6 @@ import site.biteme.biteme.domain.question.Question;
 import site.biteme.biteme.domain.student.Student;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,8 +21,6 @@ public class Answer extends BaseTimeEntity {
     // 답변 내용
     @Lob
     private String content;
-    @ElementCollection
-    private List<String> imageUrls = new ArrayList<>();
     // 어떤 질문에 대한 답변인지
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", nullable = false)
@@ -35,10 +31,10 @@ public class Answer extends BaseTimeEntity {
     private Student student;
 
     @Builder
-    public Answer(String content, List<String> imageUrls, Question question) {
+    public Answer(String content, Question question, Student student) {
         this.content = content;
-        this.imageUrls = imageUrls;
         this.question = question;
+        this.student = student;
     }
 }
 
