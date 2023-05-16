@@ -3,34 +3,40 @@ package site.biteme.biteme.api.question.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import site.biteme.biteme.api.common.SingleRspsTemplate;
 import site.biteme.biteme.api.question.dto.AddQuestionDto;
 import site.biteme.biteme.domain.question.QuestionService;
 import site.biteme.biteme.domain.student.Student;
 import site.biteme.biteme.domain.student.StudentService;
+import site.biteme.biteme.global.exception.ErrorCode;
+import site.biteme.biteme.global.exception.file.FileIOException;
 import site.biteme.biteme.global.resolver.StudentEmail;
+import site.biteme.biteme.util.FileService;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 
 @RequiredArgsConstructor
 @RestController
 public class QuestionController {
     private final QuestionService questionService;
     private final StudentService studentService;
-//    private final FileService fileService;
+    private final FileService fileService;
 
-//    @GetMapping("/questions/images")
-//    public void getImage(HttpServletResponse response, @RequestParam String url) {
-//        byte[] bytes = fileService.getByteArr(url);
-//
-//
-//
-//        response.setContentType("image/*");
-//        response.getOutputStream().write(bytes);
-//    }
+    @GetMapping("/questions/images")
+    public void getImage(HttpServletResponse response, @RequestParam(required = true) String url) {
+        byte[] bytes = fileService.getByteArr(url);
+
+        response.setContentType("image/*");
+        try {
+            response.getOutputStream().write(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new FileIOException(ErrorCode.FILE_CANNOT_BE_SENT);
+        }
+    }
 
     // 질문 등록
     @PostMapping("/questions")

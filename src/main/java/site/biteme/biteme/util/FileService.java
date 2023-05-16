@@ -5,10 +5,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import site.biteme.biteme.global.exception.ErrorCode;
-import site.biteme.biteme.global.exception.file.FileStoreException;
+import site.biteme.biteme.global.exception.file.FileIOException;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -33,10 +32,10 @@ public class FileService {
             try {
                 multipartFile.transferTo(new File(fileStorePrefix + storedFilePath));
             } catch (IOException e) {
-                // FileStoreException 발생시키기 전에, IOEXCEPTION 에 대한 로그를 남긴다.
+                // FileIOException 발생시키기 전에, IOEXCEPTION 에 대한 로그를 남긴다.
                 log.error("IOEXCEPTION: " + originalFileName + " 저장 불가" );
                 e.printStackTrace();
-                throw new FileStoreException(ErrorCode.FILE_CANNOT_BE_STORED);
+                throw new FileIOException(ErrorCode.FILE_CANNOT_BE_STORED);
             }
             storedFilePaths.add(storedFilePath);
         }
@@ -63,9 +62,12 @@ public class FileService {
         return originalFileName.substring(pos +1);
     }
 
-//    public byte[] getByteArr(String url) {
-//        InputStream imageStream = new FileInputStream("C:/Users/woo/myimage/" + "6fee38a0-fc8c-4a94-8f2f-d1bb3a99548e.png");
-//        byte[] bytes = imageStream.readAllBytes();
-//        imageStream.close();
-//    }
+    public byte[] getByteArr(String url) {
+        try (InputStream imageStream = new FileInputStream(fileStorePrefix + url)) {
+            return imageStream.readAllBytes();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new FileIOException(ErrorCode.FILE_CANNOT_BE_READ);
+        }
+    }
 }

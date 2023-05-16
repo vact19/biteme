@@ -30,7 +30,8 @@ public enum ErrorCode {
 
     // 파일
     FILE_CANNOT_BE_STORED(500, "파일을 저장할 수 없습니다."),
-
+    FILE_CANNOT_BE_READ(500, "파일을 읽을 수 없습니다."),
+    FILE_CANNOT_BE_SENT(500, "읽어들인 파일을 전송할 수 없습니다"),
     ;
 
 
