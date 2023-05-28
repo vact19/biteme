@@ -1,6 +1,7 @@
 package site.biteme.biteme.domain.question;
 
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import site.biteme.biteme.domain.common.BaseTimeEntity;
 import site.biteme.biteme.domain.common.Category;
 import site.biteme.biteme.domain.student.Student;
@@ -8,6 +9,7 @@ import site.biteme.biteme.domain.student.Student;
 import javax.persistence.*;
 import java.util.List;
 
+@Slf4j
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -29,16 +31,16 @@ public class Question extends BaseTimeEntity {
     @ElementCollection(fetch = FetchType.LAZY)
     private List<String> imageUrls;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", nullable = false, updatable = false) // 누가 질문을 작성했는지
-    private Student student;
+    @JoinColumn(name = "owner_student_id", nullable = false, updatable = false) // 누가 질문을 작성했는지
+    private Student ownerStudent;
 
     @Builder
-    public Question(String title, Category category, String content, List<String> imageUrls, Student student) {
+    public Question(String title, Category category, String content, List<String> imageUrls, Student ownerStudent) {
         this.title = title;
         this.category = category;
         this.content = content;
         this.imageUrls = imageUrls;
-        this.student = student;
+        this.ownerStudent = ownerStudent;
     }
 }
 

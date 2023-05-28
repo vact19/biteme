@@ -27,14 +27,14 @@ public class Answer extends BaseTimeEntity {
     private Question question;
     // 누가 작성했는지
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", nullable = false)
-    private Student student;
+    @JoinColumn(name = "owner_student_id", nullable = false)
+    private Student ownerStudent;
 
     @Builder
-    public Answer(String content, Question question, Student student) {
+    public Answer(String content, Question question, Student ownerStudent) {
         this.content = content;
         this.question = question;
-        this.student = student;
+        this.ownerStudent = ownerStudent;
     }
 }
 
