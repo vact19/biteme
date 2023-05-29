@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import site.biteme.biteme.domain.question.QuestionRepository;
 import site.biteme.biteme.domain.student.StudentRepository;
+import site.biteme.biteme.global.exception.BusinessException;
+import site.biteme.biteme.global.exception.ErrorCode;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -16,9 +18,28 @@ public class AnswerService {
 
     @Transactional
     public Answer save(Answer answer) {
-        studentRepository.save(answer.getStudent()); // persist or merge
+        studentRepository.save(answer.getOwnerStudent()); // persist or merge
         questionRepository.save(answer.getQuestion()); // persist or merge
 
         return answerRepository.save(answer);
     }
+
+    public Answer findByIdFetchOwner(Long answerId) {
+        return answerRepository.findByIdFetchOwner(answerId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.ANSWER_NOT_FOUND));
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -36,7 +36,7 @@ public class QuestionController {
             e.printStackTrace();
             throw new FileIOException(ErrorCode.FILE_CANNOT_BE_SENT);
         }
-    }
+}
 
     // 질문 등록
     @PostMapping("/questions")
@@ -48,6 +48,14 @@ public class QuestionController {
 
         SingleRspsTemplate<String> rspsTemplate = new SingleRspsTemplate<>(HttpStatus.CREATED.value(), "question created");
         return ResponseEntity.status(HttpStatus.CREATED).body(rspsTemplate);
+    }
+
+    // 채택 (accept)
+    @PostMapping("/questions/{questionId}/answers/{answerId}/accept")
+    public ResponseEntity<?> acceptAnswer(@PathVariable Long questionId, @PathVariable Long answerId, @StudentEmail String email){
+        questionService.acceptAnswer(questionId, answerId, email);
+
+        return ResponseEntity.noContent().build();
     }
 
 //    @GetMapping
@@ -79,23 +87,6 @@ public class QuestionController {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

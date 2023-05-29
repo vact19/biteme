@@ -41,12 +41,25 @@ public class Student extends BaseTimeEntity {
         this.password = password;
         this.major = major;
         this.department = department;
+        this.pointStatus = new PointStatus();
     }
 
-    // Todo 포인트를 올리는 메서드
-    //      @Embedded로 포인트, 랭크를 관리하는 엔티티 만들고
-    //      Util 클래스 안에서 등급, 포인트 증감 관리하자.
-    public void increasePoint() {
-
-    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

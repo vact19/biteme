@@ -27,7 +27,12 @@ public enum ErrorCode {
 
     // 질문
     QUESTION_NOT_FOUND(404, "해당 질문을 찾을 수 없습니다."),
+    NOT_OWNER_OF_QUESTION(403, "질문 등록자가 아닙니다."),
+    QUESTION_ALREADY_DONE(400, "이미 채택이 완료된 질문입니다."),
 
+    // 답변
+    ANSWER_NOT_FOUND(404, "해당 답변을 찾을 수 없습니다."),
+    ANSWER_ALREADY_ACCEPTED(400, "이미 채택된 답변입니다."),
     // 파일
     FILE_CANNOT_BE_STORED(500, "파일을 저장할 수 없습니다."),
     FILE_CANNOT_BE_READ(500, "파일을 읽을 수 없습니다."),
