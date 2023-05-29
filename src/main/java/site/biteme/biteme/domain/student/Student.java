@@ -21,25 +21,29 @@ public class Student extends BaseTimeEntity {
     private String email;
     @Column(nullable = false)
     private String password;
+
     @Enumerated(EnumType.STRING)
     private Major major;
     @Enumerated(EnumType.STRING)
     private Department department;
-    @Enumerated(EnumType.STRING)
-    private Rank rank; // 서비스 내 등급
 
-    // todo 랭크를 올리기 위한 포인트를 어떻게 운용할 것인지. 별도의 엔티티로? 그냥 학생엔티티 메서드로?
-    // todo 유틸리티 클래스? 생각해보자.
-    private int point = 0;
+    @Embedded
+    private PointStatus pointStatus;
 
 
     @Builder
-    public Student(String name, String email, String password, Major major, Department department, Rank rank) {
+    public Student(String name, String email, String password, Major major, Department department) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.major = major;
         this.department = department;
-        this.rank = rank;
+    }
+
+    // Todo 포인트를 올리는 메서드
+    //      @Embedded로 포인트, 랭크를 관리하는 엔티티 만들고
+    //      Util 클래스 안에서 등급, 포인트 증감 관리하자.
+    public void increasePoint() {
+
     }
 }

@@ -7,7 +7,6 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import site.biteme.biteme.domain.student.Department;
 import site.biteme.biteme.domain.student.Major;
-import site.biteme.biteme.domain.student.Rank;
 import site.biteme.biteme.domain.student.Student;
 
 import javax.validation.constraints.Email;
@@ -39,7 +38,6 @@ public class StudentSignUpDto {
                     .password(encodedPassword)
                     .major(major)
                     .department(department)
-                    .rank(Rank.FRESHMAN)
                     .build();
         }
     }
