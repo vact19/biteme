@@ -30,7 +30,7 @@ public class AddQuestionDto {
                     .category(category)
                     .content(content)
                     .imageUrls(null) // 제외하기보다는 url이 없다는 것을 명시
-                    .student(student)
+                    .ownerStudent(student)
                     .build();
         }
     }

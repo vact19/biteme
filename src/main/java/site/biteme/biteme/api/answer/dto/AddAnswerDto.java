@@ -20,7 +20,7 @@ public class AddAnswerDto {
             return Answer.builder()
                     .content(content)
                     .question(question)
-                    .student(student)
+                    .ownerStudent(student)
                     .build();
         }
     }
