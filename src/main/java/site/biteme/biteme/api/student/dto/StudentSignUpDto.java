@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import site.biteme.biteme.domain.student.Department;
-import site.biteme.biteme.domain.student.Major;
+import site.biteme.biteme.domain.student.component.Department;
+import site.biteme.biteme.domain.student.component.Major;
 import site.biteme.biteme.domain.student.Student;
 
 import javax.validation.constraints.Email;

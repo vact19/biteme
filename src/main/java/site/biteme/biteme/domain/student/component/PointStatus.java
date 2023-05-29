@@ -1,4 +1,4 @@
-package site.biteme.biteme.domain.student;
+package site.biteme.biteme.domain.student.component;
 
 import lombok.Getter;
 

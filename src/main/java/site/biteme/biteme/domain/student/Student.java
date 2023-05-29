@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import site.biteme.biteme.domain.common.BaseTimeEntity;
+import site.biteme.biteme.domain.student.component.Department;
+import site.biteme.biteme.domain.student.component.Major;
+import site.biteme.biteme.domain.student.component.PointStatus;
 
 import javax.persistence.*;
 
