@@ -1,6 +1,8 @@
 package site.biteme.biteme.domain.student.component;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 /**
@@ -29,13 +31,13 @@ public enum Major {
     DPT_MEDIA("미디어콘텐츠학부"),
 
     ;
+    @JsonValue
     private final String desc;
 
     Major(String desc) {
         this.desc = desc;
     }
-    // 역직렬화를 위함. CategoryConverter 에서 사용.
-    @JsonFormat(shape = JsonFormat.Shape.OBJECT)
+    @JsonCreator
     public static Major from(String major){
         return Major.valueOf(major.toUpperCase());
     }
