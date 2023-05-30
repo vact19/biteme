@@ -1,6 +1,5 @@
 package site.biteme.biteme.domain.common;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
@@ -34,7 +33,7 @@ public enum Category {
         this.desc = desc;
     }
 
-    @JsonCreator
+
     public static Category from(String major){
         return Category.valueOf(major.toUpperCase());
     }

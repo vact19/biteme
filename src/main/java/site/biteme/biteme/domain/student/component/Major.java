@@ -1,6 +1,5 @@
 package site.biteme.biteme.domain.student.component;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
@@ -37,7 +36,7 @@ public enum Major {
     Major(String desc) {
         this.desc = desc;
     }
-    @JsonCreator
+
     public static Major from(String major){
         return Major.valueOf(major.toUpperCase());
     }

@@ -1,6 +1,5 @@
 package site.biteme.biteme.domain.student.component;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
@@ -16,7 +15,6 @@ public enum Department {
         this.desc = desc;
     }
 
-    @JsonCreator
     public static Department from(String department){
         return Department.valueOf(department.toUpperCase());
     }

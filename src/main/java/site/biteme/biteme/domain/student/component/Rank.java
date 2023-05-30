@@ -1,6 +1,5 @@
 package site.biteme.biteme.domain.student.component;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
@@ -17,11 +16,5 @@ public enum Rank {
     Rank(String desc, int goalPoint) {
         this.desc = desc;
         this.goalPoint = goalPoint;
-    }
-
-    // 역직렬화를 위함. RankConverter 에서 사용.
-    @JsonCreator
-    public static Rank from(String rank){
-        return Rank.valueOf(rank.toUpperCase());
     }
 }
