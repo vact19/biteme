@@ -39,7 +39,7 @@ public class Question extends BaseTimeEntity {
     private Student ownerStudent;
 
     @Builder
-    public Question(String title, Category category, String content, List<String> imageUrls, Student ownerStudent) {
+    private Question(String title, Category category, String content, List<String> imageUrls, Student ownerStudent) {
         this.title = title;
         this.category = category;
         this.content = content;

@@ -1,7 +1,6 @@
 package site.biteme.biteme.domain.answer.comment;
 
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import site.biteme.biteme.domain.answer.Answer;
@@ -29,7 +28,6 @@ public class AnswerComment extends BaseTimeEntity {
     private Student student;
 
 
-    @Builder
     public AnswerComment(String content, Student student) {
         this.content = content;
         this.student = student;

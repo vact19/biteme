@@ -36,7 +36,7 @@ public class Answer extends BaseTimeEntity {
     private Student ownerStudent;
 
     @Builder
-    public Answer(String content, Question question, Student ownerStudent) {
+    private Answer(String content, Question question, Student ownerStudent) {
         this.content = content;
         this.question = question;
         this.ownerStudent = ownerStudent;

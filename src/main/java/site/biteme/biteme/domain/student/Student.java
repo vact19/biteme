@@ -35,7 +35,7 @@ public class Student extends BaseTimeEntity {
 
 
     @Builder
-    public Student(String name, String email, String password, Major major, Department department) {
+    private Student(String name, String email, String password, Major major, Department department) {
         this.name = name;
         this.email = email;
         this.password = password;
