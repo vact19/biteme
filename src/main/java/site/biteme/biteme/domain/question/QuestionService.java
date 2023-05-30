@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import site.biteme.biteme.api.question.dto.QuestionListDto;
 import site.biteme.biteme.domain.answer.Answer;
 import site.biteme.biteme.domain.answer.AnswerService;
 import site.biteme.biteme.domain.common.PointAmount;
@@ -64,6 +65,11 @@ public class QuestionService {
         answerOwnerStudent.getPointStatus().increasePoint(PointAmount.ANSWER_ACCEPTED);
     }
 
+    public List<QuestionListDto.Response> getList() {
+        List<Question> questions = findAll();
+        return QuestionListDto.Response.of(questions);
+    }
+
     public Question findById(Long questionId) {
         return questionRepository.findById(questionId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.QUESTION_NOT_FOUND));
@@ -72,6 +78,12 @@ public class QuestionService {
         return questionRepository.findByIdFetchOwner(questionId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.QUESTION_NOT_FOUND));
     }
+    public List<Question> findAll() {
+        return questionRepository.findAll();
+    }
+
+
+
 
 
 }
