@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import site.biteme.biteme.api.common.RspsTemplate;
 import site.biteme.biteme.api.common.SingleRspsTemplate;
 import site.biteme.biteme.api.question.dto.AddQuestionDto;
+import site.biteme.biteme.api.question.dto.QuestionDetailDto;
 import site.biteme.biteme.api.question.dto.QuestionListDto;
 import site.biteme.biteme.domain.question.QuestionService;
 import site.biteme.biteme.domain.student.Student;
@@ -74,6 +75,14 @@ public class QuestionController {
         List<QuestionListDto.Response> rspsDto = questionService.getList();
         RspsTemplate<QuestionListDto.Response> rspsTemplate = new RspsTemplate<>(HttpStatus.OK.value(), rspsDto);
         return rspsTemplate;
+    }
+
+    // 질문 상세 조회
+    @GetMapping("/questions/{questionId}")
+    public ResponseEntity<SingleRspsTemplate<QuestionDetailDto.Response>> getQuestion(@PathVariable Long questionId){
+        QuestionDetailDto.Response rspsDto = questionService.getQuestionDetail(questionId);
+        SingleRspsTemplate<QuestionDetailDto.Response> rspsTemplate = new SingleRspsTemplate<>(HttpStatus.OK.value(), rspsDto);
+        return ResponseEntity.ok(rspsTemplate);
     }
 
 //    @GetMapping

@@ -3,10 +3,13 @@ package site.biteme.biteme.domain.answer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import site.biteme.biteme.domain.question.Question;
 import site.biteme.biteme.domain.question.QuestionRepository;
 import site.biteme.biteme.domain.student.StudentRepository;
 import site.biteme.biteme.global.exception.BusinessException;
 import site.biteme.biteme.global.exception.ErrorCode;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -27,6 +30,10 @@ public class AnswerService {
     public Answer findByIdFetchOwner(Long answerId) {
         return answerRepository.findByIdFetchOwner(answerId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.ANSWER_NOT_FOUND));
+    }
+
+    public List<Answer> findAllByQuestionIdFetchOwnerAndAnswerComments(Question question) {
+        return answerRepository.findAllByQuestionIdFetchOwnerAndAnswerComments(question);
     }
 }
 

@@ -16,6 +16,8 @@ import site.biteme.biteme.domain.student.component.Department;
 import site.biteme.biteme.domain.student.component.Major;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Component
@@ -40,12 +42,15 @@ public class Init {
         student.getPointStatus().increasePoint(PointAmount.ANSWER_ACCEPTED);
         studentRepository.save(student);
 
-
+        List<String> strings = new ArrayList<>();
+        strings.add("fsd");
+        strings.add("fsdfdf");
+        strings.add("fsdfdffsdf");
         Question question = Question.builder()
                 .title("title")
                 .category(Category.AI)
                 .content("content")
-                .imageUrls(null)
+                .imageUrls(strings)
                 .ownerStudent(student)
                 .build();
         questionRepository.save(question);
@@ -56,10 +61,6 @@ public class Init {
                 .ownerStudent(student)
                 .build();
         answerRepository.save(answer);
-
-
-
-
     }
 
 

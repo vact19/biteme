@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import site.biteme.biteme.domain.answer.comment.AnswerComment;
 import site.biteme.biteme.domain.answer.component.AnswerState;
 import site.biteme.biteme.domain.common.BaseTimeEntity;
 import site.biteme.biteme.domain.question.Question;
@@ -13,6 +14,7 @@ import site.biteme.biteme.global.exception.BusinessException;
 import site.biteme.biteme.global.exception.ErrorCode;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -34,6 +36,9 @@ public class Answer extends BaseTimeEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_student_id", nullable = false)
     private Student ownerStudent;
+
+    @OneToMany(mappedBy = "answer")
+    private List<AnswerComment> answerComments;
 
     @Builder
     private Answer(String content, Question question, Student ownerStudent) {

@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import site.biteme.biteme.domain.common.BaseTimeEntity;
 import site.biteme.biteme.domain.common.Category;
+import site.biteme.biteme.domain.question.comment.QuestionComment;
 import site.biteme.biteme.domain.question.component.QuestionState;
 import site.biteme.biteme.domain.student.Student;
 import site.biteme.biteme.global.exception.BusinessException;
@@ -37,6 +38,11 @@ public class Question extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_student_id", nullable = false, updatable = false) // 누가 질문을 작성했는지
     private Student ownerStudent;
+
+
+    @OneToMany(mappedBy = "question")
+    private List<QuestionComment> questionComments;
+
 
     @Builder
     private Question(String title, Category category, String content, List<String> imageUrls, Student ownerStudent) {

@@ -44,9 +44,9 @@ public class QuestionDetailDto {
          *  정적 메서드 of() 안에서 빌더를 부르는 식으로 구현하기로 했다.
          */
         @Builder
-        public Response(Question question, int answerCount, List<Answer> answerList, int commentCount){
-            this.question = QuestionDto.of(question, answerCount);
-            this.answers = AnswerDto.of(answerList, commentCount);
+        public Response(Question question, List<Answer> answerList){
+            this.question = QuestionDto.of(question, answerList.size());
+            this.answers = AnswerDto.of(answerList);
         }
 
         @Getter
@@ -57,15 +57,18 @@ public class QuestionDetailDto {
             private String title;
             private String content;
             private List<String> images;
+            private int answerCount;
             private int commentCount;
 
-            public static QuestionDto of(Question question, int commentCount){
+            public static QuestionDto of(Question question, int answerCount){
+                int commentCount = question.getQuestionComments().size();
                 return QuestionDto.builder()
                         .id(question.getId())
                         .student(StudentIdAndNameDto.of(question.getOwnerStudent()))
                         .title(question.getTitle())
                         .content(question.getContent())
                         .images(question.getImageUrls())
+                        .answerCount(answerCount)
                         .commentCount(commentCount)
                         .build();
             }
@@ -80,13 +83,14 @@ public class QuestionDetailDto {
             private AnswerState state;
             private int commentCount;
 
-            public static List<AnswerDto> of(List<Answer> answerList, int commentCount) {
+            public static List<AnswerDto> of(List<Answer> answerList) {
                 return answerList.stream()
-                        .map(answer -> AnswerDto.of(answer, commentCount))
+                        .map(AnswerDto::of)
                         .collect(Collectors.toList());
             }
 
-            public static AnswerDto of(Answer answer, int commentCount) {
+            public static AnswerDto of(Answer answer) {
+                int commentCount = answer.getAnswerComments().size();
                 return AnswerDto.builder()
                         .id(answer.getId())
                         .student(StudentIdAndNameDto.of(answer.getOwnerStudent()))

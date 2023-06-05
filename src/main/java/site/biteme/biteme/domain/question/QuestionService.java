@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import site.biteme.biteme.api.question.dto.QuestionDetailDto;
 import site.biteme.biteme.api.question.dto.QuestionListDto;
 import site.biteme.biteme.domain.answer.Answer;
 import site.biteme.biteme.domain.answer.AnswerService;
@@ -46,6 +47,24 @@ public class QuestionService {
         return questionRepository.save(question);
     }
 
+    public Question findById(Long questionId) {
+        return questionRepository.findById(questionId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.QUESTION_NOT_FOUND));
+    }
+    public Question findByIdFetchOwner(Long questionId) {
+        return questionRepository.findByIdFetchOwner(questionId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.QUESTION_NOT_FOUND));
+    }
+    public List<Question> findAll() {
+        return questionRepository.findAll();
+    }
+    private Question findByIdFetchOwnerAndImageUrlsAndComments(Long questionId) {
+        return questionRepository.findByIdFetchOwnerAndImageUrlsAndComments(questionId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.QUESTION_NOT_FOUND));
+    }
+
+
+
     @Transactional
     public void acceptAnswer(Long questionId, Long answerId, String email) {
         /** 아래 작업들은 하나의 트랜잭션 안에서 실행되므로 예외시 롤백*/
@@ -70,20 +89,19 @@ public class QuestionService {
         return QuestionListDto.Response.of(questions);
     }
 
-    public Question findById(Long questionId) {
-        return questionRepository.findById(questionId)
-                .orElseThrow(() -> new BusinessException(ErrorCode.QUESTION_NOT_FOUND));
-    }
-    public Question findByIdFetchOwner(Long questionId) {
-        return questionRepository.findByIdFetchOwner(questionId)
-                .orElseThrow(() -> new BusinessException(ErrorCode.QUESTION_NOT_FOUND));
-    }
-    public List<Question> findAll() {
-        return questionRepository.findAll();
-    }
 
 
 
+    public QuestionDetailDto.Response getQuestionDetail(Long questionId) {
+        // Todo View를 사용해야 할까? 아래의 조인결과 뷰로 만들어서 조회?
+        Question question = findByIdFetchOwnerAndImageUrlsAndComments(questionId);
+        List<Answer> answerList = answerService.findAllByQuestionIdFetchOwnerAndAnswerComments(question);
+
+        return QuestionDetailDto.Response.builder()
+                .question(question)
+                .answerList(answerList)
+                .build();
+    }
 
 
 }
