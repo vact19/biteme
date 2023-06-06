@@ -62,8 +62,8 @@ public class FileService {
         return originalFileName.substring(pos +1);
     }
 
-    public byte[] getByteArr(String url) {
-        try (InputStream imageStream = new FileInputStream(fileStorePrefix + url)) {
+    public byte[] getByteArr(String fileName) {
+        try (InputStream imageStream = new FileInputStream(fileStorePrefix + fileName)) {
             return imageStream.readAllBytes();
         } catch (IOException e) {
             e.printStackTrace();
