@@ -61,18 +61,18 @@ public class Init {
         strings.add("d1dd09b0-a61a-4f25-b230-38eac79c4a46.jpg");
 
         Question question = Question.builder()
-                .title("title")
+                .title("김효중너무멋있다.")
                 .category(Category.AI)
-                .content("content")
+                .content("김효중이왜멋있는지에대한설명")
                 .imageUrls(strings)
                 .ownerStudent(student)
                 .build();
         questionRepository.save(question);
 
         Question question2 = Question.builder()
-                .title("title")
+                .title("김효중★이세돌")
                 .category(Category.AI)
-                .content("content")
+                .content("국가적 손실")
                 .imageUrls(strings)
                 .ownerStudent(student2)
                 .build();
