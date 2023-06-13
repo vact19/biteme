@@ -70,7 +70,7 @@ public class Init {
         questionRepository.save(question);
 
         Question question2 = Question.builder()
-                .title("김효중★이세돌")
+                .title("질문이있어요")
                 .category(Category.AI)
                 .content("국가적 손실")
                 .imageUrls(strings)

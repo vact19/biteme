@@ -32,7 +32,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
         // GET 요청은 모두 허용
         // TODO 사용자 민감 정보가 포함된 GET 요청은 허용하지 않도록 별도의 Interceptor 만들기
-        if ("GET".equals(request.getMethod())) {
+        if ("GET".equals(request.getMethod()) || "OPTIONS".equals(request.getMethod())) {
             return true;
         }
 
