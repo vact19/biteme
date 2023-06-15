@@ -11,6 +11,5 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     Optional<Question> findByIdFetchOwner(Long questionId);
 
     @Query("Select q From Question q Join Fetch q.ownerStudent Left Join Fetch q.imageUrls where q.id = :questionId")
-    Optional<Question> findByIdFetchOwnerAndImageUrlsAndComments(Long questionId);
-
+    Optional<Question> findByIdFetchOwnerAndImageUrls(Long questionId);
 }

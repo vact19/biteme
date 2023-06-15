@@ -58,8 +58,8 @@ public class QuestionService {
     public List<Question> findAll() {
         return questionRepository.findAll();
     }
-    private Question findByIdFetchOwnerAndImageUrlsAndComments(Long questionId) {
-        return questionRepository.findByIdFetchOwnerAndImageUrlsAndComments(questionId)
+    private Question findByIdFetchOwnerAndImageUrls(Long questionId) {
+        return questionRepository.findByIdFetchOwnerAndImageUrls(questionId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.QUESTION_NOT_FOUND));
     }
 
@@ -89,13 +89,12 @@ public class QuestionService {
         return QuestionListDto.Response.of(questions);
     }
 
-
-
-
     public QuestionDetailDto.Response getQuestionDetail(Long questionId) {
         // Todo View를 사용해야 할까? 아래의 조인결과 뷰로 만들어서 조회?
-        Question question = findByIdFetchOwnerAndImageUrlsAndComments(questionId);
-        List<Answer> answerList = answerService.findAllByQuestionIdFetchOwnerAndAnswerComments(question);
+        /** 질문의 일대다 객체중에 질문사진리스트, 질문댓글리스트, 답변리스트를 조회해야 함. 질문사진리스트만 fetch join*/
+        Question question = findByIdFetchOwnerAndImageUrls(questionId);
+
+        List<Answer> answerList = answerService.findAllByQuestionFetchOwnerAndAnswerComments(question);
 
         return QuestionDetailDto.Response.builder()
                 .question(question)

@@ -32,8 +32,8 @@ public class AnswerService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.ANSWER_NOT_FOUND));
     }
 
-    public List<Answer> findAllByQuestionIdFetchOwnerAndAnswerComments(Question question) {
-        return answerRepository.findAllByQuestionIdFetchOwnerAndAnswerComments(question);
+    public List<Answer> findAllByQuestionFetchOwnerAndAnswerComments(Question question) {
+        return answerRepository.findAllByQuestionFetchOwnerAndAnswerComments(question);
     }
 }
 
