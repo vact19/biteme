@@ -27,6 +27,8 @@ public class AnswerController {
     @PostMapping("/questions/{questionId}/answers")
     public ResponseEntity<SingleRspsTemplate<String>> createAnswer(@RequestBody AddAnswerDto.Request answerRequest
                                                                                                 , @PathVariable Long questionId, @StudentEmail String email){
+        //Todo 아래작업 하나의 메서드 안에서 처리. 질문자가 답변을 등록할 수 없도록
+
         // 어떤 질문에 대한 답변인지, 누가 답변하는지
         Student student = studentService.findByEmail(email);
         Question question = questionService.findById(questionId);
